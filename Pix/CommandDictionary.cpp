@@ -4,6 +4,8 @@
 #include "CmdSetResolution.h"
 #include "CmdVarFloat.h"
 
+#include "CmdSetColor.h"
+
 CommandDictionary* CommandDictionary::Get()
 {
 	static CommandDictionary sInstance;
@@ -22,6 +24,9 @@ CommandDictionary::CommandDictionary()
 
 	// Rasterization commands
 	RegisterCommand<CmdDrawPixel>();
+
+	// Register command set color
+	RegisterCommand<CmdSetColor>();
 }
 
 TextEditor::LanguageDefinition CommandDictionary::GenerateLanguageDefinition()
