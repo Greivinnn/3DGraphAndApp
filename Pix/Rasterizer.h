@@ -3,6 +3,12 @@
 #include <XEngine.h>
 #include "Vertex.h"
 
+enum class FillMode
+{
+	WireFrame,
+	Solid
+};
+
 class Rasterizer
 {
 public:
@@ -11,6 +17,8 @@ public:
 public:
 	void SetColor(X::Color color);
 
+	void SetFillMode(FillMode fillMode);
+
 	void DrawPoint(int x, int y);
 
 	void DrawPoint(const Vertex& vertex);
@@ -18,5 +26,7 @@ public:
 	void DrawTriangle(const Vertex& a, const Vertex& b, Vertex& c);
 
 private:
+	void DrawFilledTriangle(const Vertex& a, const Vertex& b, const Vertex& c);
 	X::Color mColor = X::Colors::White;
+	FillMode mFillMode = FillMode::Solid;
 };

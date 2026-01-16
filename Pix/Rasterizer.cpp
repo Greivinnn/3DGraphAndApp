@@ -80,7 +80,71 @@ void Rasterizer::DrawLine(const Vertex& a, const Vertex& b)
 }
 void Rasterizer::DrawTriangle(const Vertex& a, const Vertex& b, Vertex& c)
 {
-	DrawLine(a, b);
-	DrawLine(b, c);
-	DrawLine(c, a);
+	switch (mFillMode)
+	{
+	case FillMode::WireFrame:
+	{
+		DrawLine(a, b);
+		DrawLine(b, c);
+		DrawLine(c, a);
+	}
+	break;
+	case FillMode::Solid:
+	{
+		std::vector<Vertex> sortedVertices = { a, b, c };
+		std::sort(sortedVertices.begin(), sortedVertices.end(),
+			[](const Vertex& lhs, const Vertex& rhs)
+			{
+				return lhs.pos.y < rhs.pos.y;
+			});
+		DrawFilledTriangle(sortedVertices[0], sortedVertices[1], sortedVertices[2]);
+	}
+	break;
+	default:
+		break;
+	}
+}
+
+void Rasterizer::DrawFilledTriangle(const Vertex& a, const Vertex& b, const Vertex& c)
+{
+	float dy = c.pos.y - a.pos.y;
+	if (MathHelper::CheckEqual(a.pos.y, b.pos.y))
+	{
+		int startY = static_cast<int>(a.pos.y);
+		int endY = static_cast<int>(c.pos.y);
+		for (int y = startY; y <= endY; ++y)
+		{
+			float t = static_cast<float>(y - startY) / dy;
+			Vertex aSide = LerpVertex(a, c, t);
+			Vertex bSide = LerpVertex(b, c, t);
+			DrawLine(aSide, bSide);
+		}
+	}
+	// if b and c are the same, flat bottom
+	else if (MathHelper::CheckEqual(b.pos.y, c.pos.y))
+	{
+		int startY = static_cast<int>(a.pos.y);
+		int endY = static_cast<int>(c.pos.y);
+		for (int y = startY; y <= endY; ++y)
+		{
+			float t = static_cast<float>(y - startY) / dy;
+			Vertex bSide = LerpVertex(a, b, t);
+			Vertex cSide = LerpVertex(a, c, t);
+			DrawLine(bSide, cSide);
+		}
+	}
+	else
+	{
+		float t = (b.pos.y - a.pos.y) / dy;
+		Vertex splitVertex = LerpVertex(a, c, t);
+		// bottom fill
+		DrawFilledTriangle(a, b, splitVertex);
+		// top fill
+		DrawFilledTriangle(b, splitVertex, c);
+	}
+}
+
+void Rasterizer::SetFillMode(FillMode fillMode)
+{
+	mFillMode = fillMode;
 }
