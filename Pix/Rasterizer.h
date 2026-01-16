@@ -1,6 +1,7 @@
 #pragma once
 
 #include <XEngine.h>
+#include "Vertex.h"
 
 class Rasterizer
 {
@@ -11,6 +12,10 @@ public:
 	void SetColor(X::Color color);
 
 	void DrawPoint(int x, int y);
+
+	void DrawPoint(const Vertex& vertex);
+	void DrawLine(const Vertex& a, const Vertex& b);
+	void DrawTriangle(const Vertex& a, const Vertex& b, Vertex& c);
 
 private:
 	X::Color mColor = X::Colors::White;
