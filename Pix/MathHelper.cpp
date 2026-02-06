@@ -14,9 +14,15 @@ float MathHelper::MagnitudeSquared(const Vector3& v)
 	return v.x * v.x + v.y * v.y + v.z + v.z;
 }
 
+void MathHelper::FlattenVectorScreenCoord(Vector3& v)
+{
+	v.x = floor(v.x + 0.5f);
+	v.y = floor(v.y + 0.5f);
+}
+
 float MathHelper::Magnitude(const Vector2& v)
 {
-	return sqrt(MagnitudeSquared(v));
+	return v.x * v.x + v.y * v.y;
 }
 float MathHelper::Magnitude(const Vector3& v)
 {
