@@ -11,6 +11,11 @@
 #include "CmdSetFillMode.h"
 #include "CmdSetViewport.h"
 #include "CmdMatrixStack.h"
+#include "CmdCamera.h"
+#include "CmdSetCullMode.h"	
+#include "CmdEnableDepthBuffer.h"
+#include "CmdVarInt.h"
+#include "CmdVarBool.h"
 
 CommandDictionary* CommandDictionary::Get()
 {
@@ -46,6 +51,16 @@ CommandDictionary::CommandDictionary()
 	RegisterCommand<CmdPushRotationZ>();
 	RegisterCommand<CmdPushScaling>();
 	RegisterCommand<CmdPopMatrix>();
+
+	RegisterCommand<CmdSetCameraPosition>();
+	RegisterCommand<CmdSetCameraNearPlane>();
+	RegisterCommand<CmdSetCameraFarPlane>();
+	RegisterCommand<CmdSetCameraFov>();
+	RegisterCommand<CmdSetCameraDirection>();
+	RegisterCommand<CmdSetCullMode>();
+	RegisterCommand<CmdEnableDepthBuffer>();
+	RegisterCommand<CmdVarInt>();
+	RegisterCommand<CmdVarBool>();
 }
 
 TextEditor::LanguageDefinition CommandDictionary::GenerateLanguageDefinition()

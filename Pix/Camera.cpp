@@ -33,7 +33,7 @@ void Camera::SetFarPlane(float far)
 {
 	mFarPlane = far;
 }
-void Camera::setFOV(float fov)
+void Camera::SetFOV(float fov)
 {
 	mFOV = fov;
 }

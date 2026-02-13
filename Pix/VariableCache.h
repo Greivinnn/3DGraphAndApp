@@ -2,6 +2,9 @@
 
 #include <string>
 #include <vector>
+#include <memory>
+
+struct Variable;
 
 class VariableCache
 {
@@ -18,15 +21,13 @@ public:
 
 	void ShowEditor();
 
-private:
-	struct FloatVar
-	{
-		std::string name;
-		float value;
-		float speed;
-		float min;
-		float max;
-	};
+	void AddInt(const std::string& name, int value, float speed = 1.0f, int min = -INT_MAX, int max = INT_MAX);
+	int GetInt(const std::string& param);
 
-	std::vector<FloatVar> mFloatVars;
+	void AddBool(const std::string& name, bool value);
+	bool GetBool(const std::string& param);
+
+private:
+
+	std::vector<std::unique_ptr<Variable>> mVariables;
 };

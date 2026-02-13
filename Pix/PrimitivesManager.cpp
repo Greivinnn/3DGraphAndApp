@@ -20,6 +20,39 @@ namespace
 			hw, hh, 0.0f, 1.0f
 		};
 	}
+
+	Vector3 CreateFaceNormal(const std::vector<Vertex>& triangles)
+	{
+		// to create a face normal
+		// we take the clockwise direction and do a cross product
+		// so 0-1, 0-2 for the directions
+		// cross product
+		// return normal
+		Vector3 abDir = triangles[1].pos - triangles[0].pos;
+		Vector3 acDir = triangles[2].pos - triangles[0].pos;
+		Vector3 faceNormal = MathHelper::Normalize(MathHelper::Cross(abDir, acDir));
+		return faceNormal;
+	}
+
+	bool CullTriangle(CullMode mode, const std::vector<Vertex>& triangleInNDC)
+	{
+		if (mode == CullMode::None)
+		{
+			return false;
+		}
+		Vector3 faceNormal = CreateFaceNormal(triangleInNDC);
+
+		if (mode == CullMode::Back)
+		{
+			return faceNormal.z > 0.0f;
+		}
+		if (mode == CullMode::Front)
+		{
+			return faceNormal.z < 0.0f;
+		}
+
+		return false;
+	}
 }
 
 PrimitivesManager* PrimitivesManager::Get()
@@ -30,6 +63,15 @@ PrimitivesManager* PrimitivesManager::Get()
 
 PrimitivesManager::PrimitivesManager()
 {
+}
+
+void PrimitivesManager::OnNewFrame()
+{
+	mCullMode = CullMode::Back;
+}
+void PrimitivesManager::SetCullMode(CullMode mode)
+{
+	mCullMode = mode;
 }
 
 // Start accepting vertices
@@ -61,7 +103,7 @@ bool PrimitivesManager::EndDraw()
 	Matrix4 matView = Camera::Get()->GetViewMatrix();
 	Matrix4 matProj = Camera::Get()->GetProjectionMatrix();
 	Matrix4 matScreen = GetScreenTransform();
-	Matrix4 matFinal = matWorld * matView * matProj * matScreen;
+	Matrix4 matNDC = matWorld * matView * matProj;
 
 	Rasterizer* rasterizer = Rasterizer::Get();
 
@@ -97,9 +139,24 @@ bool PrimitivesManager::EndDraw()
 
 			if(mApplyTransform)
 			{
+
+				// convert triangle positions to NDC space
+				for (uint32_t v = 0; v < triangle.size(); ++v)
+				{
+					triangle[v].pos = MathHelper::TransformCoord(triangle[v].pos, matNDC);
+				}
+
+				// while in NDC space, we can see if the face is facing the camera or away
+				if (CullTriangle(mCullMode, triangle))
+				{
+					continue;
+				}
+
+				// convert NDC space triangles to screen space
 				for(uint32_t v = 0; v < triangle.size(); ++v)
 				{
-					triangle[v].pos = MathHelper::TransformCoord(triangle[v].pos, matFinal);
+					triangle[v].pos = MathHelper::TransformCoord(triangle[v].pos, matScreen);
+					MathHelper::FlattenVectorScreenCoord(triangle[v].pos);
 				}
 			}
 
