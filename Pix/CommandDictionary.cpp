@@ -16,6 +16,7 @@
 #include "CmdEnableDepthBuffer.h"
 #include "CmdVarInt.h"
 #include "CmdVarBool.h"
+#include "CmdLights.h"
 
 CommandDictionary* CommandDictionary::Get()
 {
@@ -61,6 +62,9 @@ CommandDictionary::CommandDictionary()
 	RegisterCommand<CmdEnableDepthBuffer>();
 	RegisterCommand<CmdVarInt>();
 	RegisterCommand<CmdVarBool>();
+	RegisterCommand<CmdSetLightAmbient>();
+	RegisterCommand<CmdSetLightDiffuse>();
+	RegisterCommand<CmdSetLightSpecular>();
 }
 
 TextEditor::LanguageDefinition CommandDictionary::GenerateLanguageDefinition()

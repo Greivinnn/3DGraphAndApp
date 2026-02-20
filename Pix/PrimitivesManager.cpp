@@ -3,6 +3,7 @@
 #include "Clipper.h"
 #include "MatrixStack.h"
 #include "Camera.h"
+#include "LightManager.h"
 
 extern float gResolutionX;
 extern float gResolutionY;
@@ -106,6 +107,7 @@ bool PrimitivesManager::EndDraw()
 	Matrix4 matNDC = matWorld * matView * matProj;
 
 	Rasterizer* rasterizer = Rasterizer::Get();
+	LightManager* lightManager = LightManager::Get();
 
 	switch (mTopology)
 	{
@@ -139,6 +141,13 @@ bool PrimitivesManager::EndDraw()
 
 			if(mApplyTransform)
 			{
+				// convert triangle positions to world space
+
+				for (uint32_t v = 0; v < triangle.size(); ++v)
+				{
+					triangle[v].pos = MathHelper::TransformCoord(triangle[v].pos, matWorld);
+					Vector3 faceNormal = CreateFaceNormal(triangle);
+				}
 
 				// convert triangle positions to NDC space
 				for (uint32_t v = 0; v < triangle.size(); ++v)
