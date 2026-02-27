@@ -57,3 +57,31 @@ class CmdSetDirectionalLight : public Command
 	}
 	bool Execute(const std::vector<std::string>& params) override;
 };
+
+class CmdAddPointLight : public Command
+{
+public:
+	const char* GetName() override
+	{
+		return "AddPointLight";
+	}
+	const char* GetDescription() override
+	{
+		return "Add a point light. Usage: AddPointLight x y z";
+	}
+	bool Execute(const std::vector<std::string>& params) override;	
+};
+
+class CmdAddSpotLight :public Command
+{
+public:
+	const char* GetName() override
+	{
+		return "AddSpotLight";
+	}
+	const char* GetDescription() override
+	{
+		return "AddSpotLight(px, py, pz, dx, dy, dz, <constant>, <linear>, <quadratic>, <angle>, <decay>";
+	}
+	bool Execute(const std::vector<std::string>& params) override;
+};

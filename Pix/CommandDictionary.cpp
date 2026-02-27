@@ -17,6 +17,8 @@
 #include "CmdVarInt.h"
 #include "CmdVarBool.h"
 #include "CmdLights.h"
+#include "CmdSetShadeMode.h"	
+#include "CmdModel.h"
 
 CommandDictionary* CommandDictionary::Get()
 {
@@ -65,6 +67,11 @@ CommandDictionary::CommandDictionary()
 	RegisterCommand<CmdSetLightAmbient>();
 	RegisterCommand<CmdSetLightDiffuse>();
 	RegisterCommand<CmdSetLightSpecular>();
+	RegisterCommand<CmdSetDirectionalLight>();
+	RegisterCommand<CmdAddPointLight>();
+	RegisterCommand<CmdAddSpotLight>();
+	RegisterCommand<CmdSetShadeMode>();
+	RegisterCommand<CmdModel>();
 }
 
 TextEditor::LanguageDefinition CommandDictionary::GenerateLanguageDefinition()

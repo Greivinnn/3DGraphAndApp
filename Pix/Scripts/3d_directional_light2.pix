@@ -27,7 +27,7 @@ SetCameraDirection($camDirX, $camDirY, $camDirZ)
 SetLightAmbient(0.2, 0.2, 0.2)
 SetLightDiffuse(0.7, 0.7, 0.7)
 SetLightSpecular(0.3, 0.3, 0.3)
-AddDirectionalLight($lightDirX, $lightDirY, $lightDirZ)
+SetDirectionalLight($lightDirX, $lightDirY, $lightDirZ)
 
 PushTranslation(-2, 1.2, 0)
 PushRotationY($rotYA)
@@ -107,3 +107,5 @@ EndDraw()
 PopMatrix()
 PopMatrix()
 PopMatrix()
+
+

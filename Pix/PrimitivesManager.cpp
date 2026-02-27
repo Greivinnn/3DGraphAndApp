@@ -107,7 +107,9 @@ bool PrimitivesManager::EndDraw()
 	Matrix4 matNDC = matWorld * matView * matProj;
 
 	Rasterizer* rasterizer = Rasterizer::Get();
-	LightManager* lightManager = LightManager::Get();
+	LightManager* lm = LightManager::Get();
+
+	ShadeMode shadeMode = rasterizer->GetShadeMode();
 
 	switch (mTopology)
 	{
@@ -146,7 +148,45 @@ bool PrimitivesManager::EndDraw()
 				for (uint32_t v = 0; v < triangle.size(); ++v)
 				{
 					triangle[v].pos = MathHelper::TransformCoord(triangle[v].pos, matWorld);
+					triangle[v].posWorld = triangle[v].pos;
+				}
+				if (MathHelper::CheckEqual(MathHelper::MagnitudeSquared(triangle[0].norm), 0.0f))
+				{
 					Vector3 faceNormal = CreateFaceNormal(triangle);
+					for (uint32_t v = 0; v < triangle.size(); ++v)
+					{
+						triangle[v].norm = faceNormal;
+					}
+				}
+				
+				for(uint32_t v = 0; v < triangle.size(); ++v)
+				{
+					triangle[v].pos = MathHelper::TransformCoord(triangle[v].pos, matWorld);
+					triangle[v].posWorld = triangle[v].pos;
+					triangle[v].norm = MathHelper::TransformNormal(triangle[v].norm, matWorld);
+				}
+
+
+
+				// flat shading is vertex based
+				if( shadeMode == ShadeMode::Flat)
+				{
+					triangle[0].color *= lm->ComputeLightColor(triangle[0].pos, triangle[0].norm);
+					triangle[1].color = triangle[0].color;
+					triangle[2].color = triangle[0].color;
+				}
+				// gouraud shading is vertex based
+				else if (shadeMode == ShadeMode::Gouraud)
+				{
+					for(uint32_t v = 0; v < triangle.size(); ++v)
+					{
+						triangle[v].color *= lm->ComputeLightColor(triangle[v].pos, triangle[v].norm);
+					}
+				}
+
+				for(uint32_t v = 0; v < triangle.size(); ++v)
+				{
+					triangle[v].color *= lm->ComputeLightColor(triangle[v].posWorld, triangle[v].norm);
 				}
 
 				// convert triangle positions to NDC space
