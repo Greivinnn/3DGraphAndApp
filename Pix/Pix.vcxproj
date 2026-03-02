@@ -179,6 +179,7 @@
     <ClCompile Include="CmdEnableDepthBuffer.cpp" />
     <ClCompile Include="CmdEndDraw.cpp" />
     <ClCompile Include="CmdLights.cpp" />
+    <ClCompile Include="CmdMaterial.cpp" />
     <ClCompile Include="CmdMatrixStack.cpp" />
     <ClCompile Include="CmdModel.cpp" />
     <ClCompile Include="CmdSetColor.cpp" />
@@ -240,6 +241,7 @@
     <ClInclude Include="CommandDictionary.h" />
     <ClInclude Include="DepthBuffer.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="CmdMaterial.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightManager.h" />
     <ClInclude Include="LightTypes.h" />

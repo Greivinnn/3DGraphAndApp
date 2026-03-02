@@ -177,6 +177,9 @@
     <ClCompile Include="CmdModel.cpp">
       <Filter>Commands</Filter>
     </ClCompile>
+    <ClCompile Include="CmdMaterial.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextEditor.h">
@@ -306,6 +309,9 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="CmdModel.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdMaterial.h">
       <Filter>Commands</Filter>
     </ClInclude>
   </ItemGroup>
