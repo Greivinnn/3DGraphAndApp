@@ -23,6 +23,7 @@ public:
 
 	void OnNewFrame();
 	void SetCullMode(CullMode mode);
+	void CorrectUV(bool correctUV);
 
 	// Start accepting vertices
 	bool BeginDraw(Topology topology, bool applyTransform = false);
@@ -37,4 +38,5 @@ private:
 	Topology mTopology = Topology::Point;
 	bool mDrawBegin = false;
 	bool mApplyTransform = false;
+	bool mCorrectUV = false;
 };

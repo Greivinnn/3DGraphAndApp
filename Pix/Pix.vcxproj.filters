@@ -180,6 +180,15 @@
     <ClCompile Include="CmdMaterial.cpp">
       <Filter>Commands</Filter>
     </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="CmdSetTexture.cpp" />
+    <ClCompile Include="CmdSetCorrectUV.cpp" />
+    <ClCompile Include="CmdAddressMode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextEditor.h">
@@ -312,6 +321,21 @@
       <Filter>Commands</Filter>
     </ClInclude>
     <ClInclude Include="CmdMaterial.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdSetTexture.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdSetCorrectUV.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdAddressMode.h">
       <Filter>Commands</Filter>
     </ClInclude>
   </ItemGroup>
