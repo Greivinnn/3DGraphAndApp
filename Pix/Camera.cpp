@@ -8,12 +8,11 @@ Camera* Camera::Get()
 	static Camera sInstance;
 	return &sInstance;
 }
-
 void Camera::OnNewFrame()
 {
 	mPosition = { 0.0f, 0.0f, 0.0f };
 	mDirection = { 0.0f, 0.0f, 1.0f };
-	mNearPlane = 0.1f;
+	mNearPlane = 0.01f;
 	mFarPlane = 100.0f;
 	mFOV = 1.57f;
 }
@@ -23,21 +22,20 @@ void Camera::SetPosition(const Vector3& pos)
 }
 void Camera::SetDirection(const Vector3& dir)
 {
-	mDirection = dir;
+	mDirection = MathHelper::Normalize(dir);
 }
-void Camera::SetNearPlane(float near)
+void Camera::SetNearPlane(float nearPlane)
 {
-	mNearPlane = near;
+	mNearPlane = nearPlane;
 }
-void Camera::SetFarPlane(float far)
+void Camera::SetFarPlane(float farPlane)
 {
-	mFarPlane = far;
+	mFarPlane = farPlane;
 }
 void Camera::SetFOV(float fov)
 {
 	mFOV = fov;
 }
-
 Matrix4 Camera::GetViewMatrix() const
 {
 	const Vector3 l = mDirection;
@@ -46,12 +44,11 @@ Matrix4 Camera::GetViewMatrix() const
 	const float a = -MathHelper::Dot(r, mPosition);
 	const float b = -MathHelper::Dot(u, mPosition);
 	const float c = -MathHelper::Dot(l, mPosition);
-
 	return {
 		r.x, u.x, l.x, 0.0f,
 		r.y, u.y, l.y, 0.0f,
 		r.z, u.z, l.z, 0.0f,
-		a,   b,   c,   1.0f
+		  a,   b,   c, 1.0f
 	};
 }
 Matrix4 Camera::GetProjectionMatrix() const
@@ -62,20 +59,17 @@ Matrix4 Camera::GetProjectionMatrix() const
 	const float zn = mNearPlane;
 	const float zf = mFarPlane;
 	const float q = zf / (zf - zn);
-
 	return {
-		w, 0.0f, 0.0f, 0.0f,
-		0.0f, d, 0.0f, 0.0f,
-		0.0f, 0.0f, q, 1.0f,
-		0.0f, 0.0f, -zn*q , 0.0f
+		   w, 0.0f, 0.0f, 0.0f,
+		0.0f,	 d, 0.0f, 0.0f,
+		0.0f, 0.0f,    q, 1.0f,
+		0.0f, 0.0f,-zn*q, 0.0f
 	};
 }
-
 const Vector3& Camera::GetPosition() const
 {
 	return mPosition;
 }
-
 const Vector3& Camera::GetDirection() const
 {
 	return mDirection;

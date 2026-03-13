@@ -9,6 +9,5 @@ bool CmdSetTexture::Execute(const std::vector<std::string>& params)
 	}
 
 	TextureManager::Get()->SetTexture(params[0]);
-
 	return true;
 }

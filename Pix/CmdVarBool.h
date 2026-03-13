@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Command.h"
 
 class CmdVarBool : public Command
@@ -8,13 +9,17 @@ public:
 	{
 		return "bool";
 	}
+
 	const char* GetDescription() override
 	{
 		return
-			"Declares a bool variable"
+			"Declares a bool variable.\n"
 			"\n"
 			"syntax: bool $<name> = <value>\n"
-			"\n";
+			"\n"
+			"e.g.\n"
+			"  bool enableDepth = true\n";
 	}
+
 	bool Execute(const std::vector<std::string>& params) override;
 };

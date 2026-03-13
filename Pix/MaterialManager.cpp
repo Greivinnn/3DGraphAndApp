@@ -2,25 +2,22 @@
 
 MaterialManager* MaterialManager::Get()
 {
-	static MaterialManager instance;
-	return &instance;	
+	static MaterialManager sInstance;
+	return &sInstance;
 }
-
 void MaterialManager::OnNewFrame()
 {
-	mEmisive = X::Colors::Black;
+	mEmissive = X::Colors::Black;
 	mAmbient = X::Colors::White;
 	mDiffuse = X::Colors::White;
 	mSpecular = X::Colors::White;
 	mShininess = 10.0f;
 }
-
-void MaterialManager::SetMaterialEmisive(const X::Color& color)
+void MaterialManager::SetMaterialEmissive(const X::Color& color)
 {
-	mEmisive = color;
+	mEmissive = color;
 }
 void MaterialManager::SetMaterialAmbient(const X::Color& color)
-
 {
 	mAmbient = color;
 }
@@ -37,9 +34,9 @@ void MaterialManager::SetMaterialShininess(float shininess)
 	mShininess = shininess;
 }
 
-const X::Color& MaterialManager::GetMaterialEmiissive() const
+const X::Color& MaterialManager::GetMaterialEmissive() const
 {
-	return mEmisive;
+	return mEmissive;
 }
 const X::Color& MaterialManager::GetMaterialAmbient() const
 {

@@ -17,7 +17,4 @@ public:
 			"- stores topology (point, line, triangle)";
 	}
 	bool Execute(const std::vector<std::string>& params) override;
-private:
-
-
 };

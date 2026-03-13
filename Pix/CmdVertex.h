@@ -12,11 +12,13 @@ public:
 	const char* GetDescription() override
 	{
 		return
-			"Vertex(x, y)\n"
+			"Vertex(x, y\n"
 			"Vertex(x, y, z)\n"
 			"Vertex(x, y, r, g, b)\n"
 			"Vertex(x, y, z, r, g, b)\n"
-			"\n - adds vertex to the primitives manager before render";
+			"\n"
+			"- Adds a vertex at the specified position\n"
+			"- Uses the current color set by SetColor";
 	}
 	bool Execute(const std::vector<std::string>& params) override;
 };

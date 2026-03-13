@@ -11,7 +11,7 @@ bool CmdSetCameraPosition::Execute(const std::vector<std::string>& params)
 	{
 		return false;
 	}
-	
+
 	VariableCache* vc = VariableCache::Get();
 	const float x = vc->GetFloat(params[0]);
 	const float y = vc->GetFloat(params[1]);

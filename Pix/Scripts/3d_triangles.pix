@@ -1,6 +1,5 @@
 SetResolution(500, 500, 1)
 
-
 float $camX = 0, 0.01
 float $camY = 0, 0.01
 float $camZ = -5, 0.01
@@ -12,13 +11,12 @@ float $camDirZ = 1, 0.01
 float $transZ = 0, 0.1
 float $rotY = 25, 0.1
 
-bool $enableDepth = true;
+bool $enableDepth = true
 
-SetViewport(50, 50, 400, 400)
+SetViewport(50, 50, 400, 400, true)
 SetClipping(true)
 SetCullMode(back)
 EnableDepthBuffer($enableDepth)
-ShowViewport(true)
 
 SetCameraPosition($camX, $camY, $camZ)
 SetCameraDirection($camDirX, $camDirY, $camDirZ)

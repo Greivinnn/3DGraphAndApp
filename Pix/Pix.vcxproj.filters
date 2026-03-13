@@ -75,6 +75,9 @@
     <ClCompile Include="CmdDrawPixel.cpp">
       <Filter>Commands</Filter>
     </ClCompile>
+    <ClCompile Include="CmdSetColor.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
     <ClCompile Include="CmdSetResolution.cpp">
       <Filter>Commands</Filter>
     </ClCompile>
@@ -99,9 +102,6 @@
     <ClCompile Include="Viewport.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="CmdSetColor.cpp">
-      <Filter>Commands</Filter>
-    </ClCompile>
     <ClCompile Include="MathHelper.cpp">
       <Filter>Math</Filter>
     </ClCompile>
@@ -117,14 +117,14 @@
     <ClCompile Include="CmdVertex.cpp">
       <Filter>Commands</Filter>
     </ClCompile>
-    <ClCompile Include="CmdSetFillMode.cpp">
-      <Filter>Commands</Filter>
-    </ClCompile>
     <ClCompile Include="CmdSetViewport.cpp">
       <Filter>Commands</Filter>
     </ClCompile>
+    <ClCompile Include="CmdSetFillMode.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
     <ClCompile Include="Clipper.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Commands</Filter>
     </ClCompile>
     <ClCompile Include="MatrixStack.cpp">
       <Filter>Graphics</Filter>
@@ -142,7 +142,7 @@
       <Filter>Commands</Filter>
     </ClCompile>
     <ClCompile Include="DepthBuffer.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Commands</Filter>
     </ClCompile>
     <ClCompile Include="CmdEnableDepthBuffer.cpp">
       <Filter>Commands</Filter>
@@ -177,18 +177,24 @@
     <ClCompile Include="CmdModel.cpp">
       <Filter>Commands</Filter>
     </ClCompile>
-    <ClCompile Include="CmdMaterial.cpp">
-      <Filter>Commands</Filter>
-    </ClCompile>
     <ClCompile Include="TextureManager.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="CmdSetTexture.cpp" />
-    <ClCompile Include="CmdSetCorrectUV.cpp" />
-    <ClCompile Include="CmdAddressMode.cpp" />
+    <ClCompile Include="CmdSetTexture.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="CmdSetCorrectUV.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="CmdSetAddressMode.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="CmdSetUseFilter.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextEditor.h">
@@ -198,6 +204,9 @@
       <Filter>Editor</Filter>
     </ClInclude>
     <ClInclude Include="CmdDrawPixel.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdSetColor.h">
       <Filter>Commands</Filter>
     </ClInclude>
     <ClInclude Include="CmdSetResolution.h">
@@ -221,14 +230,8 @@
     <ClInclude Include="Graphics.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Rasterizer.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Viewport.h">
       <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="CmdSetColor.h">
-      <Filter>Commands</Filter>
     </ClInclude>
     <ClInclude Include="Vector2.h">
       <Filter>Math</Filter>
@@ -254,14 +257,14 @@
     <ClInclude Include="CmdVertex.h">
       <Filter>Commands</Filter>
     </ClInclude>
-    <ClInclude Include="CmdSetFillMode.h">
-      <Filter>Commands</Filter>
-    </ClInclude>
     <ClInclude Include="CmdSetViewport.h">
       <Filter>Commands</Filter>
     </ClInclude>
+    <ClInclude Include="CmdSetFillMode.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
     <ClInclude Include="Clipper.h">
-      <Filter>Graphics</Filter>
+      <Filter>Commands</Filter>
     </ClInclude>
     <ClInclude Include="Matrix4.h">
       <Filter>Math</Filter>
@@ -282,7 +285,7 @@
       <Filter>Commands</Filter>
     </ClInclude>
     <ClInclude Include="DepthBuffer.h">
-      <Filter>Graphics</Filter>
+      <Filter>Commands</Filter>
     </ClInclude>
     <ClInclude Include="CmdEnableDepthBuffer.h">
       <Filter>Commands</Filter>
@@ -308,6 +311,9 @@
     <ClInclude Include="CmdLights.h">
       <Filter>Commands</Filter>
     </ClInclude>
+    <ClInclude Include="Rasterizer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
     <ClInclude Include="CmdSetShadeMode.h">
       <Filter>Commands</Filter>
     </ClInclude>
@@ -318,9 +324,6 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="CmdModel.h">
-      <Filter>Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="CmdMaterial.h">
       <Filter>Commands</Filter>
     </ClInclude>
     <ClInclude Include="TextureManager.h">
@@ -335,7 +338,10 @@
     <ClInclude Include="CmdSetCorrectUV.h">
       <Filter>Commands</Filter>
     </ClInclude>
-    <ClInclude Include="CmdAddressMode.h">
+    <ClInclude Include="CmdSetAddressMode.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdSetUseFilter.h">
       <Filter>Commands</Filter>
     </ClInclude>
   </ItemGroup>
@@ -353,7 +359,7 @@
       <UniqueIdentifier>{f4ee6086-a9c7-41f0-9695-19708a6954c3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Math">
-      <UniqueIdentifier>{53a6511c-a3fd-4ab2-8c5b-e9b8236c144f}</UniqueIdentifier>
+      <UniqueIdentifier>{67d7cc68-d6e2-4d93-8f72-37b4eaaa32dd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

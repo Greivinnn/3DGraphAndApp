@@ -1,14 +1,14 @@
 #include "Rasterizer.h"
 #include "DepthBuffer.h"
-#include "LightManager.h"	
+#include "LightManager.h"
 #include "TextureManager.h"
 
-void DrawLineHoriz(const Vertex& left, const Vertex& right)
+void DrawLineHorizontal(const Vertex& left, const Vertex& right)
 {
 	float dx = right.pos.x - left.pos.x;
 	int startX = static_cast<int>(left.pos.x);
 	int endX = static_cast<int>(right.pos.x);
-	for (int x = startX; x < endX; ++x)
+	for (int x = startX; x <= endX; ++x)
 	{
 		float t = static_cast<float>(x - startX) / dx;
 		Vertex v = LerpVertex(left, right, t);
@@ -40,6 +40,21 @@ void Rasterizer::SetColor(X::Color color)
 	mColor = color;
 }
 
+void Rasterizer::SetFillMode(FillMode fillMode)
+{
+	mFillMode = fillMode;
+}
+
+void Rasterizer::SetShadeMode(ShadeMode shadeMode)
+{
+	mShadeMode = shadeMode;
+}
+
+ShadeMode Rasterizer::GetShadeMode() const
+{
+	return mShadeMode;
+}
+
 void Rasterizer::DrawPoint(int x, int y)
 {
 	X::DrawPixel(x, y, mColor);
@@ -52,18 +67,21 @@ void Rasterizer::DrawPoint(const Vertex& vertex)
 	if (DepthBuffer::Get()->CheckDepthBuffer(x, y, vertex.pos.z))
 	{
 		mColor = TextureManager::Get()->SampleColor(vertex.color);
-		if(mShadeMode == ShadeMode::Phong)
+		if (mShadeMode == ShadeMode::Phong)
 		{
 			mColor *= LightManager::Get()->ComputeLightColor(vertex.posWorld, vertex.norm);
+			X::DrawPixel(x, y, mColor);
 		}
-		X::DrawPixel(x, y, mColor);
+		else
+		X::DrawPixel(x, y, vertex.color);
 	}
 }
+
 void Rasterizer::DrawLine(const Vertex& a, const Vertex& b)
 {
 	float dx = b.pos.x - a.pos.x;
 	float dy = b.pos.y - a.pos.y;
-	// if true, line is going up/down or move vertical than horizontal
+	// if true, line is going up/down or more vertical than horizontal
 	if (MathHelper::CheckEqual(dx, 0.0f) || abs(dy / dx) >= 1.0f)
 	{
 		if (a.pos.y < b.pos.y)
@@ -72,7 +90,7 @@ void Rasterizer::DrawLine(const Vertex& a, const Vertex& b)
 		}
 		else
 		{
-			DrawLineVertical(b, a);
+			DrawLineHorizontal(b, a);
 		}
 	}
 	// line is going more horizontal than vertical
@@ -80,19 +98,20 @@ void Rasterizer::DrawLine(const Vertex& a, const Vertex& b)
 	{
 		if (a.pos.x < b.pos.x)
 		{
-			DrawLineHoriz(a, b);
+			DrawLineHorizontal(a, b);
 		}
 		else
 		{
-			DrawLineHoriz(b, a);
+			DrawLineHorizontal(b, a);
 		}
 	}
 }
-void Rasterizer::DrawTriangle(const Vertex& a, const Vertex& b, Vertex& c)
+
+void Rasterizer::DrawTriangle(const Vertex& a, const Vertex& b, const Vertex& c)
 {
 	switch (mFillMode)
 	{
-	case FillMode::WireFrame:
+	case FillMode::Wireframe:
 	{
 		DrawLine(a, b);
 		DrawLine(b, c);
@@ -114,20 +133,11 @@ void Rasterizer::DrawTriangle(const Vertex& a, const Vertex& b, Vertex& c)
 		break;
 	}
 }
-
-void Rasterizer::SetShadeMode(ShadeMode shadeMode)
-{
-	mShadeMode = shadeMode;
-}
-
-ShadeMode Rasterizer::GetShadeMode() const
-{
-	return mShadeMode;
-}
-
 void Rasterizer::DrawFilledTriangle(const Vertex& a, const Vertex& b, const Vertex& c)
 {
+	// highest delta y
 	float dy = c.pos.y - a.pos.y;
+	// if a and b are the same, flat bottom
 	if (MathHelper::CheckEqual(a.pos.y, b.pos.y))
 	{
 		int startY = static_cast<int>(a.pos.y);
@@ -153,6 +163,7 @@ void Rasterizer::DrawFilledTriangle(const Vertex& a, const Vertex& b, const Vert
 			DrawLine(bSide, cSide);
 		}
 	}
+	// if none are equal, need to split triangle
 	else
 	{
 		float t = (b.pos.y - a.pos.y) / dy;
@@ -162,9 +173,4 @@ void Rasterizer::DrawFilledTriangle(const Vertex& a, const Vertex& b, const Vert
 		// top fill
 		DrawFilledTriangle(b, splitVertex, c);
 	}
-}
-
-void Rasterizer::SetFillMode(FillMode fillMode)
-{
-	mFillMode = fillMode;
 }

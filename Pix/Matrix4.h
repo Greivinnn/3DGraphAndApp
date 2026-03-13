@@ -6,26 +6,26 @@
 struct Matrix4
 {
 	float _11, _12, _13, _14,
-		_21, _22, _23, _24,
-		_31, _32, _33, _34,
-		_41, _42, _43, _44;
+		  _21, _22, _23, _24, 
+		  _31, _32, _33, _34, 
+		  _41, _42, _43, _44;
 
 	Matrix4(float a11, float a12, float a13, float a14,
-		float a21, float a22, float a23, float a24,
-		float a31, float a32, float a33, float a34,
-		float a41, float a42, float a43, float a44)
+			float a21, float a22, float a23, float a24,
+			float a31, float a32, float a33, float a34,
+			float a41, float a42, float a43, float a44)
 		: _11(a11), _12(a12), _13(a13), _14(a14),
-		_21(a21), _22(a22), _23(a23), _24(a24),
-		_31(a31), _32(a32), _33(a33), _34(a34),
-		_41(a41), _42(a42), _43(a43), _44(a44)
+		  _21(a21), _22(a22), _23(a23), _24(a24),
+		  _31(a31), _32(a32), _33(a33), _34(a34),
+		  _41(a41), _42(a42), _43(a43), _44(a44)
 	{
 	}
 
 	Matrix4()
 		: Matrix4(1.0f, 0.0f, 0.0f, 0.0f,
-			0.0f, 1.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, 1.0f, 0.0f,
-			0.0f, 0.0f, 0.0f, 1.0f)
+				  0.0f, 1.0f, 0.0f, 0.0f,
+				  0.0f, 0.0f, 1.0f, 0.0f,
+				  0.0f, 0.0f, 0.0f, 1.0f)
 	{
 	}
 

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Command.h"
 
 class CmdSetCullMode : public Command
@@ -10,9 +11,10 @@ public:
 	}
 	const char* GetDescription() override
 	{
-		return "SetCullMode(mode)\n"
+		return
+			"SetCullMode(mode)"
 			"\n"
-			"- sets the cull mode to none, back or front\n";
+			"- sets the cull mode, none, back, front";
 	}
 	bool Execute(const std::vector<std::string>& params) override;
 };

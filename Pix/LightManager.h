@@ -15,11 +15,10 @@ public:
 	void SetLightSpecular(const X::Color& color);
 
 	void AddDirectionalLight(const Vector3& direction);
-	void AddPointLight(const Vector3& position, float attenuationConstant, float attenuationLinear, float attenuationQuadratic);
-	void AddSpotLight(const Vector3& position, const Vector3& direction, float attenuationConstant, float attenuationLinear, float attenuationQuadratic, float angle, float decay);
+	void AddPointLight(const Vector3& position, float kConstant, float kLinear, float kQuadratic);
+	void AddSpotLight(const Vector3& position, const Vector3& direction, float kConstant, float kLinear, float kQuadratic, float angle, float decay);
 
 	X::Color ComputeLightColor(const Vector3& position, const Vector3& normal) const;
-
 
 private:
 	std::vector<std::unique_ptr<Light>> mLights;

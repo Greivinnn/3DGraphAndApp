@@ -3,7 +3,6 @@ SetResolution(500, 500, 1)
 SetViewport(50, 50, 400, 400, true)
 SetClipping(true)
 SetCullMode(back)
-ShowViewport(true)
 EnableDepthBuffer(true)
 
 float $camX = 0, 0.01
@@ -63,5 +62,7 @@ PushScaling(0.5, 0.5, 0.5)
 
 SetShadeMode(phong)
 BeginDraw(triangle, true)
-Model(../Models/torus_knot.obj)
+Model(../Models/snow_man.obj)
 EndDraw()
+
+

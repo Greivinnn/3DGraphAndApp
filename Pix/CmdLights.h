@@ -9,55 +9,71 @@ public:
 	{
 		return "SetLightAmbient";
 	}
+
 	const char* GetDescription() override
 	{
-		return "Set the ambient color of the light. Usage: SetLightAmbient r g b a";
+		return
+			"SetLightAmbient(r, g, b)\n"
+			"\n"
+			"- sets the ambient color of light";
 	}
+
 	bool Execute(const std::vector<std::string>& params) override;
 };
-
 class CmdSetLightDiffuse : public Command
 {
-	public:
+public:
 	const char* GetName() override
 	{
 		return "SetLightDiffuse";
 	}
+
 	const char* GetDescription() override
 	{
-		return "Set the diffuse color of the light. Usage: SetLightDiffuse r g b a";
+		return
+			"SetLightDiffuse(r, g, b)\n"
+			"\n"
+			"- sets the deffuse color of light";
 	}
+
 	bool Execute(const std::vector<std::string>& params) override;
 };
-
 class CmdSetLightSpecular : public Command
 {
-	public:
+public:
 	const char* GetName() override
 	{
 		return "SetLightSpecular";
 	}
+
 	const char* GetDescription() override
 	{
-		return "Set the specular color of the light. Usage: SetLightSpecular r g b a";
+		return
+			"SetLightSpecular(r, g, b)\n"
+			"\n"
+			"- sets the specular color of light";
 	}
+
 	bool Execute(const std::vector<std::string>& params) override;
 };
-
-class CmdSetDirectionalLight : public Command
+class CmdAddDirectionalLight : public Command
 {
-	public:
+public:
 	const char* GetName() override
 	{
-		return "SetDirectionalLight";
+		return "AddDirectionalLight";
 	}
+
 	const char* GetDescription() override
 	{
-		return "Add a directional light. Usage: SetDirectionalLight x y z";
+		return
+			"AddDirectionalLight(x, y, z)\n"
+			"\n"
+			"- adds a directional light with (x, y, z) direction";
 	}
+
 	bool Execute(const std::vector<std::string>& params) override;
 };
-
 class CmdAddPointLight : public Command
 {
 public:
@@ -65,14 +81,18 @@ public:
 	{
 		return "AddPointLight";
 	}
+
 	const char* GetDescription() override
 	{
-		return "Add a point light. Usage: AddPointLight x y z";
+		return
+			"AddPointLight(x, y, z, <constant>, <linear>, <quadratic>)\n"
+			"\n"
+			"- adds a point light to the scene";
 	}
-	bool Execute(const std::vector<std::string>& params) override;	
-};
 
-class CmdAddSpotLight :public Command
+	bool Execute(const std::vector<std::string>& params) override;
+};
+class CmdAddSpotLight : public Command
 {
 public:
 	const char* GetName() override
@@ -81,7 +101,10 @@ public:
 	}
 	const char* GetDescription() override
 	{
-		return "AddSpotLight(px, py, pz, dx, dy, dz, <constant>, <linear>, <quadratic>, <angle>, <decay>";
+		return
+			"AddSpotLight(px, py, pz, dX, dY, dZ, <constant>, <linear>, <quadratic>, <angle>, <decay>)\n"
+			"\n"
+			"- adds a spot light to the scene";
 	}
 	bool Execute(const std::vector<std::string>& params) override;
 };

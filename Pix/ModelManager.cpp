@@ -2,8 +2,8 @@
 
 ModelManager* ModelManager::Get()
 {
-	static ModelManager instance;
-	return &instance;
+	static ModelManager sInstance;
+	return &sInstance;
 }
 
 void ModelManager::Clear()
@@ -18,12 +18,11 @@ const Model* ModelManager::GetModel(const std::string& fileName)
 		{
 			return model->GetFileName() == fileName;
 		});
-	if(iter != mModels.end())
+	if (iter != mModels.end())
 	{
 		return iter->get();
 	}
 	auto& model = mModels.emplace_back(std::make_unique<Model>());
-
 	model->Load(fileName);
 	return model.get();
 }

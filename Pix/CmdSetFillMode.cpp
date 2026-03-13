@@ -11,11 +11,11 @@ bool CmdSetFillMode::Execute(const std::vector<std::string>& params)
 
 	// determine which fill mode to use
 	FillMode fillMode = FillMode::Solid;
-	if(params[0] == "wireframe")
+	if (params[0] == "wireframe")
 	{
-		fillMode = FillMode::WireFrame;
+		fillMode = FillMode::Wireframe;
 	}
-	else if(params[0] == "solid")
+	else if (params[0] == "solid")
 	{
 		fillMode = FillMode::Solid;
 	}

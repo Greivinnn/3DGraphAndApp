@@ -10,13 +10,13 @@ struct Variable
 	std::string name;
 };
 
-struct FloatVar : Variable
+struct FloatVar : public Variable
 {
 	void ShowUI() override
 	{
 		ImGui::DragFloat(name.c_str(), &value, speed, min, max);
 	}
-
+	
 	float value = 0.0f;
 	float speed = 1.0f;
 	float min = 0.0f;
@@ -36,7 +36,7 @@ struct IntVar : public Variable
 	int max = 1;
 };
 
-struct BoolVariable : public Variable
+struct BoolVar : public Variable
 {
 	void ShowUI() override
 	{
@@ -97,24 +97,12 @@ float VariableCache::GetFloat(const std::string& param)
 	return stof(param);
 }
 
-void VariableCache::ShowEditor()
-{
-	if (mVariables.empty())
-		return;
-
-	ImGui::Begin("Variables", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-	for (auto& var : mVariables)
-		var->ShowUI();
-	ImGui::End();
-}
-
 void VariableCache::AddInt(const std::string& name, int value, float speed, int min, int max)
 {
 	auto iter = std::find_if(mVariables.begin(), mVariables.end(), [name](auto& var)
 		{
 			return var->name == name;
 		});
-
 	if (iter == mVariables.end())
 	{
 		auto intVar = std::make_unique<IntVar>();
@@ -150,7 +138,7 @@ void VariableCache::AddBool(const std::string& name, bool value)
 		});
 	if (iter == mVariables.end())
 	{
-		auto boolVar = std::make_unique<BoolVariable>();
+		auto boolVar = std::make_unique<BoolVar>();
 		boolVar->name = name;
 		boolVar->value = value;
 		mVariables.emplace_back(std::move(boolVar));
@@ -166,8 +154,21 @@ bool VariableCache::GetBool(const std::string& param)
 			});
 		if (iter != mVariables.end())
 		{
-			return static_cast<BoolVariable*>((*iter).get())->value;
+			return static_cast<BoolVar*>((*iter).get())->value;
 		}
 	}
 	return param == "true";
+}
+
+void VariableCache::ShowEditor()
+{
+	if (mVariables.empty())
+	{
+		return;
+	}
+
+	ImGui::Begin("Variables", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	for (auto& var : mVariables)
+		var->ShowUI();
+	ImGui::End();
 }

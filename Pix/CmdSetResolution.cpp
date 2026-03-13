@@ -1,5 +1,6 @@
 #include "CmdSetResolution.h"
-#include "DepthBuffer.h";
+#include "DepthBuffer.h"
+
 #include <XEngine.h>
 
 float gResolutionX = 0.0f;

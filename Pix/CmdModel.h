@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Command.h"	
+#include "Command.h"
 
 class CmdModel : public Command
 {
@@ -12,11 +12,9 @@ public:
 	const char* GetDescription() override
 	{
 		return
-			"Model(modelName)\n"
+			"Model(fileName)\n"
 			"\n"
-			"- loads a model from the models folder\n"
-			"- supported formats: .obj, .fbx, .gltf\n"
-			"- example: Model teapot.obj";
+			"- loads a file to render, adds vertices to primitives manager";
 	}
 	bool Execute(const std::vector<std::string>& params) override;
 };

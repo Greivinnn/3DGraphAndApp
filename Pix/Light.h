@@ -13,7 +13,6 @@ public:
 	void SetDiffuse(const X::Color& color) { mDiffuse = color; }
 	void SetSpecular(const X::Color& color) { mSpecular = color; }
 
-
 protected:
 	X::Color mAmbient = X::Colors::White;
 	X::Color mDiffuse = X::Colors::White;

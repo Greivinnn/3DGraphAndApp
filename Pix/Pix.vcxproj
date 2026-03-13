@@ -173,16 +173,15 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Clipper.cpp" />
-    <ClCompile Include="CmdAddressMode.cpp" />
     <ClCompile Include="CmdBeginDraw.cpp" />
     <ClCompile Include="CmdCamera.cpp" />
     <ClCompile Include="CmdDrawPixel.cpp" />
     <ClCompile Include="CmdEnableDepthBuffer.cpp" />
     <ClCompile Include="CmdEndDraw.cpp" />
     <ClCompile Include="CmdLights.cpp" />
-    <ClCompile Include="CmdMaterial.cpp" />
     <ClCompile Include="CmdMatrixStack.cpp" />
     <ClCompile Include="CmdModel.cpp" />
+    <ClCompile Include="CmdSetAddressMode.cpp" />
     <ClCompile Include="CmdSetColor.cpp" />
     <ClCompile Include="CmdSetCorrectUV.cpp" />
     <ClCompile Include="CmdSetCullMode.cpp" />
@@ -190,6 +189,7 @@
     <ClCompile Include="CmdSetResolution.cpp" />
     <ClCompile Include="CmdSetShadeMode.cpp" />
     <ClCompile Include="CmdSetTexture.cpp" />
+    <ClCompile Include="CmdSetUseFilter.cpp" />
     <ClCompile Include="CmdSetViewport.cpp" />
     <ClCompile Include="CmdVarBool.cpp" />
     <ClCompile Include="CmdVarFloat.cpp" />
@@ -224,7 +224,6 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Clipper.h" />
-    <ClInclude Include="CmdAddressMode.h" />
     <ClInclude Include="CmdBeginDraw.h" />
     <ClInclude Include="CmdCamera.h" />
     <ClInclude Include="CmdDrawPixel.h" />
@@ -233,6 +232,7 @@
     <ClInclude Include="CmdLights.h" />
     <ClInclude Include="CmdMatrixStack.h" />
     <ClInclude Include="CmdModel.h" />
+    <ClInclude Include="CmdSetAddressMode.h" />
     <ClInclude Include="CmdSetColor.h" />
     <ClInclude Include="CmdSetCorrectUV.h" />
     <ClInclude Include="CmdSetCullMode.h" />
@@ -240,6 +240,7 @@
     <ClInclude Include="CmdSetResolution.h" />
     <ClInclude Include="CmdSetShadeMode.h" />
     <ClInclude Include="CmdSetTexture.h" />
+    <ClInclude Include="CmdSetUseFilter.h" />
     <ClInclude Include="CmdSetViewport.h" />
     <ClInclude Include="CmdVarBool.h" />
     <ClInclude Include="CmdVarFloat.h" />
@@ -249,7 +250,6 @@
     <ClInclude Include="CommandDictionary.h" />
     <ClInclude Include="DepthBuffer.h" />
     <ClInclude Include="Graphics.h" />
-    <ClInclude Include="CmdMaterial.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightManager.h" />
     <ClInclude Include="LightTypes.h" />

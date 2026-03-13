@@ -1,11 +1,11 @@
 #include "Clipper.h"
 #include "Viewport.h"
 
-const short BIT_INSIDE	= 0; // 0000
-const short BIT_LEFT	= 1 << 1; // 0001
-const short BIT_RIGHT	= 1 << 2; //0010
-const short BIT_BOTTOM	= 1 << 3; //0100
-const short BIT_TOP		= 1 << 4; //1000
+const short BIT_INSIDE	=	0;		//0000
+const short BIT_LEFT	=	1 << 1; //0001
+const short BIT_RIGHT	=	1 << 2; //0010
+const short BIT_BOTTOM	=	1 << 3; // 0100
+const short BIT_TOP		=	1 << 4; //1000
 
 short GetOutputCode(float x, float y)
 {
@@ -24,10 +24,11 @@ short GetOutputCode(float x, float y)
 	{
 		code |= BIT_TOP;
 	}
-	else if (y > vp->GetMaxX())
+	else if (y > vp->GetMaxY())
 	{
 		code |= BIT_BOTTOM;
 	}
+
 	return code;
 }
 
@@ -37,9 +38,8 @@ enum ClipEdge
 	CE_TOP,
 	CE_RIGHT,
 	CE_BOTTOM,
-	CE_COUNT
+	CE_COUNT	// Can be used to index through the enum
 };
-
 bool IsInFront(ClipEdge edge, const Vector3& pos)
 {
 	Viewport* vp = Viewport::Get();
@@ -47,14 +47,13 @@ bool IsInFront(ClipEdge edge, const Vector3& pos)
 	{
 	case CE_LEFT:	return pos.x > vp->GetMinX();
 	case CE_TOP:	return pos.y > vp->GetMinY();
-	case CE_RIGHT:  return pos.x < vp->GetMaxX();
+	case CE_RIGHT:	return pos.x < vp->GetMaxX();
 	case CE_BOTTOM:	return pos.y < vp->GetMaxY();
 	default:
 		break;
 	}
 	return false;
 }
-
 Vertex ComputeIntersection(ClipEdge edge, const Vertex& v, const Vertex& vPO)
 {
 	Viewport* vp = Viewport::Get();
@@ -73,7 +72,6 @@ Vertex ComputeIntersection(ClipEdge edge, const Vertex& v, const Vertex& vPO)
 
 Clipper::Clipper()
 {
-
 }
 
 Clipper* Clipper::Get()
@@ -84,9 +82,9 @@ Clipper* Clipper::Get()
 
 void Clipper::OnNewFrame()
 {
-	// mIsClipping = false;
+	mIsClipping = false;
 	// enable for testing
-	mIsClipping = true;
+	// mIsClipping = true;
 }
 
 bool Clipper::ClipPoint(const Vertex& v)
@@ -95,7 +93,7 @@ bool Clipper::ClipPoint(const Vertex& v)
 	{
 		return false;
 	}
-
+	return false;
 	Viewport* vp = Viewport::Get();
 	float minX = vp->GetMinX();
 	float minY = vp->GetMinY();
@@ -110,6 +108,7 @@ bool Clipper::ClipLine(Vertex& a, Vertex& b)
 	{
 		return false;
 	}
+
 	Viewport* vp = Viewport::Get();
 	float minX = vp->GetMinX();
 	float minY = vp->GetMinY();
@@ -118,27 +117,26 @@ bool Clipper::ClipLine(Vertex& a, Vertex& b)
 
 	short codeA = GetOutputCode(a.pos.x, a.pos.y);
 	short codeB = GetOutputCode(b.pos.x, b.pos.y);
-
 	while (true)
 	{
 		if (!(codeA | codeB))
 		{
-			// if a and b are 0000 then draw line
+			// if both A and B are 0000, then draw the line
 			break;
 		}
 		else if (codeA & codeB)
 		{
-			// both in the same side, so not crossing the screen
+			// both lines are on the same side, so not crossing the screen
 			// cull the lines
 			break;
 		}
 
 		float t = 0.0f;
 		short outCode = codeB > codeA ? codeB : codeA;
-		if (outCode & BIT_TOP)				{ t = (minY - a.pos.y) / (b.pos.y - a.pos.y); }
-		else if (outCode & BIT_BOTTOM)		{ t = (maxY - a.pos.y) / (b.pos.y - a.pos.y); }
-		else if (outCode & BIT_LEFT)		{ t = (minX - a.pos.x) / (b.pos.x - a.pos.x); }
-		else if (outCode & BIT_RIGHT)		{ t = (maxX - a.pos.x) / (b.pos.x - a.pos.x); }
+		if (outCode & BIT_TOP) { t = (minY - a.pos.y) / (b.pos.y - a.pos.y); }
+		else if (outCode & BIT_BOTTOM) { t = (maxY - a.pos.y) / (b.pos.y - a.pos.y); }
+		else if (outCode & BIT_LEFT) { t = (minX - a.pos.x) / (b.pos.x - a.pos.x); }
+		else if (outCode & BIT_RIGHT) { t = (maxX - a.pos.x) / (b.pos.x - a.pos.x); }
 
 		if (outCode == codeA)
 		{
@@ -152,53 +150,62 @@ bool Clipper::ClipLine(Vertex& a, Vertex& b)
 		}
 	}
 
+	// if codeA or  codeB are not 0000, it is of the screen
 	return (codeA | codeB);
 }
-bool Clipper::ClipTriangle(std::vector <Vertex>& vertices)
+bool Clipper::ClipTriangle(std::vector<Vertex>& vertices)
 {
 	if (!mIsClipping)
 	{
 		return false;
 	}
- 	std::vector<Vertex> newVertices;
+
+	// store new vertices while we step through the edges
+	std::vector<Vertex> newVertices;
+	// step through the edges using the enum
 	for (int i = 0; i < CE_COUNT; ++i)
 	{
 		newVertices.clear();
 		ClipEdge edge = (ClipEdge)i;
 		for (size_t n = 0; n < vertices.size(); ++n)
 		{
+			// this loops when we get to the end
 			size_t nPO = (n + 1) % vertices.size();
+			// original vertex
 			const Vertex& v = vertices[n];
+			// vertex plus one
 			const Vertex& vPO = vertices[nPO];
 
 			bool nIsInFront = IsInFront(edge, v.pos);
 			bool nPOIsInFront = IsInFront(edge, vPO.pos);
 
-			// case 1 both are in front 
+			// case 1 both are in front
 			if (nIsInFront && nPOIsInFront)
 			{
+				// save nPO
 				newVertices.push_back(vPO);
 			}
 			// case 2 both are behind
-			else if (!nIsInFront && !nPOIsInFront)
+			else if (!nIsInFront && ! nPOIsInFront)
 			{
-				//we dont save anything, they are off screen
+				// we dont save anything as they are off screen
 			}
 			// case 3 v is in front vPO is behind
 			else if (nIsInFront && !nPOIsInFront)
 			{
+				// only save the intersection
 				newVertices.push_back(ComputeIntersection(edge, v, vPO));
 			}
-			// case 4 v iis behind and vPO is in front
+			// case 4 v is behind and vPO is in front
 			else if (!nIsInFront && nPOIsInFront)
 			{
+				// we save intersection AND save vPO
 				newVertices.push_back(ComputeIntersection(edge, v, vPO));
 				newVertices.push_back(vPO);
 			}
 		}
 		vertices = newVertices;
 	}
-
 	return newVertices.empty();
 }
 

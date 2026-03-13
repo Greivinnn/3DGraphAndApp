@@ -9,13 +9,12 @@ public:
 	{
 		return "SetTexture";
 	}
-
 	const char* GetDescription() override
 	{
 		return
-			"sets the texture to use on the next drawn object\n";
+			"SetTexture(fileName)\n"
+			"\n"
+			"- sets the texture to use on the next drawn object";
 	}
-
 	bool Execute(const std::vector<std::string>& params) override;
 };
-

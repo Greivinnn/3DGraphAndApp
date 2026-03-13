@@ -1,6 +1,5 @@
 #include "Model.h"
 
-
 void Model::Load(const std::string& fileName)
 {
     mFileName = fileName;
@@ -15,7 +14,7 @@ void Model::Load(const std::string& fileName)
     if (file == nullptr)
     {
         char buffer[128];
-        sprintf_s(buffer, "Can't open file %s", fileName.c_str());
+        sprintf_s(buffer, "Can't open model file %s", fileName.c_str());
         MessageBoxA(nullptr, buffer, "Model Error", MB_OK | MB_ICONEXCLAMATION);
         return;
     }
@@ -70,7 +69,7 @@ void Model::Load(const std::string& fileName)
         normalsCount.resize(positions.size());
         for (size_t i = 2; i < positionIndices.size(); i += 3)
         {
-            // get indeces of the triangle
+            // get indices of the triangle
             uint32_t index0 = positionIndices[i - 2] - 1;
             uint32_t index1 = positionIndices[i - 1] - 1;
             uint32_t index2 = positionIndices[i] - 1;
@@ -88,7 +87,7 @@ void Model::Load(const std::string& fileName)
             normals[index1] = normals[index1] + faceNormal;
             normals[index2] = normals[index2] + faceNormal;
 
-            // tlly the normals
+            // tally the normals
             ++normalsCount[index0];
             ++normalsCount[index1];
             ++normalsCount[index2];
@@ -97,7 +96,7 @@ void Model::Load(const std::string& fileName)
             normalIndices.push_back(index1 + 1);
             normalIndices.push_back(index2 + 1);
         }
-        // get the average normal fo reach vertex
+        // get the average normal for each vertex
         for (size_t i = 0; i < normals.size(); ++i)
         {
             if (normalsCount[i] > 0)
@@ -118,15 +117,18 @@ void Model::Load(const std::string& fileName)
         mVertices[i].color = X::Colors::White;
     }
 }
+
 const std::string& Model::GetFileName() const
 {
     return mFileName;
 }
+
 const Vertex& Model::GetVertex(uint32_t index) const
 {
     return mVertices[index];
 }
+
 uint32_t Model::GetVertexCount() const
 {
     return mVertices.size();
-} 
+}

@@ -1,3 +1,5 @@
 D:\PeterStuff\X\Main\X\External\DirectXTK\Audio\Bin\Desktop_2019\x64\Debug\DirectXTKAudioWin8.lib
 D:\PeterStuff\X\Main\X\External\DirectXTK\Audio\Bin\Desktop_2019\x64\Debug\DirectXTKAudioWin8.pdb
+D:\LaSalle College (2)\3D_Graphics_and_Applications\X\External\DirectXTK\Audio\Bin\Desktop_2019\x64\Debug\DirectXTKAudioWin8.lib
+C:\LASALLE SECOND YEAR\3DGraphingAndApplication\X\External\DirectXTK\Audio\Bin\Desktop_2019\x64\Debug\DirectXTKAudioWin8.lib
 C:\LASALLE SECOND YEAR\3DGraphAndApp\X\External\DirectXTK\Audio\Bin\Desktop_2019\x64\Debug\DirectXTKAudioWin8.lib

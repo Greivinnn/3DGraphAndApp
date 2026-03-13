@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Command.h"
 
 class CmdEnableDepthBuffer : public Command
@@ -8,13 +9,12 @@ public:
 	{
 		return "EnableDepthBuffer";
 	}
-
 	const char* GetDescription() override
 	{
 		return
-			"EnableDepthBuffer\n"
-			"- enables/disables the depth buffer rendering";
+			"EnableDepthBuffer"
+			"\n"
+			"- enables or disables the depth buffer rendering";
 	}
-
 	bool Execute(const std::vector<std::string>& params) override;
 };

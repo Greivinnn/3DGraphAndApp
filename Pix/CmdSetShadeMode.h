@@ -14,7 +14,7 @@ public:
 		return
 			"SetShadeMode(mode)\n"
 			"\n"
-			"- sets the shade mode to flat or smooth\n";
+			"- flat, gouraud, or phong";
 	}
 	bool Execute(const std::vector<std::string>& params) override;
 };

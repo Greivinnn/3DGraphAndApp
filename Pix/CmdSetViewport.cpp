@@ -1,7 +1,7 @@
-#include "CmdSetViewport.h";
-#include "Viewport.h";
+#include "CmdSetViewport.h"
+#include "Viewport.h"
 
-bool CmdViewport::Execute(const std::vector<std::string>& params)
+bool CmdSetViewport::Execute(const std::vector<std::string>& params)
 {
 	if (params.size() < 4)
 	{
@@ -12,7 +12,7 @@ bool CmdViewport::Execute(const std::vector<std::string>& params)
 	float y = stof(params[1]);
 	float width = stof(params[2]);
 	float height = stof(params[3]);
-	float show = (params.size() == 5) && params[4] == "true";
+	bool show = params.size() == 5 && params[4] == "true";
 
 	Viewport::Get()->SetViewport(x, y, width, height);
 	Viewport::Get()->ShowViewport(show);

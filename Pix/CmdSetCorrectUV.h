@@ -1,6 +1,6 @@
 #pragma once
-#include "Command.h"
 
+#include "Command.h"
 
 class CmdSetCorrectUV : public Command
 {
@@ -11,10 +11,10 @@ public:
 	}
 	const char* GetDescription() override
 	{
-		return "SetCorrectUV\n"
+		return
+			"SetCorrectUV(CorrectUV)\n"
 			"\n"
-			"sets the correct uv using our primitives manager functions";
+			"- enables/disables correct uv for textured objects";
 	}
 	bool Execute(const std::vector<std::string>& params) override;
-
 };
